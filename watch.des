@@ -1,0 +1,28 @@
+INITIALIZER:
+  from Tkinter import *
+  from DWatchGUI import DWatchGUI as d
+
+  root = Tk()
+  root.withdraw()
+
+  topLevel = Toplevel(root)
+  topLevel.resizable(width="NO", height="NO")
+  topLevel.title("DWatch")
+
+  g = d(topLevel, eventhandler)
+
+  eventhandler.start()
+  root.mainloop()
+  exit()
+
+STATECHART:
+    A [DS]
+
+TRANSITION:
+    S: A
+    N: A
+    T: 1
+    O: print "updating time"
+       g.increaseTimeByOne()
+       g.refreshTimeDisplay()
+
