@@ -16,8 +16,10 @@ INITIALIZER:
     exit()
 
 STATECHART:
-    A [DS]
-    B
+    A [DS] # main time state
+    B      # chrono state
+
+# main loops for default and chrono states
 
 TRANSITION:
     S: A
@@ -25,7 +27,18 @@ TRANSITION:
     T: 1
     O: print "updating time"
        g.increaseTimeByOne()
-       g.refreshTimeDisplay()
+
+TRANSITION:
+    S: B
+    N: B
+    T: 1
+    O: print "refreshing chrono and time in the background"
+       g.increaseTimeByOne()
+       g.refreshChronoDisplay()
+
+# backlight stuff
+# todo: can these be done without copypaste?
+# todo: implement that 2 second delay until the light gets turned off
 
 TRANSITION:
     S: A
@@ -40,3 +53,31 @@ TRANSITION:
     E: lightOff
     O: print "disable light"
        g.unsetIndiglo()
+
+TRANSITION:
+    S: B
+    N: B
+    E: lightOn
+    O: print "enable light"
+       g.setIndiglo()
+
+TRANSITION:
+    S: B
+    N: B
+    E: lightOff
+    O: print "disable light"
+       g.unsetIndiglo()
+
+# chrono toggle
+
+TRANSITION:
+    S: A
+    N: B
+    E: changeMode
+    O: print "toggle mode to chrono"
+
+TRANSITION:
+    S: B
+    N: A
+    E: changeMode
+    O: print "toggle mode to time"
