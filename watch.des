@@ -1,22 +1,23 @@
 INITIALIZER:
-  from Tkinter import *
-  from DWatchGUI import DWatchGUI as d
+    from Tkinter import *
+    from DWatchGUI import DWatchGUI as d
 
-  root = Tk()
-  root.withdraw()
+    root = Tk()
+    root.withdraw()
 
-  topLevel = Toplevel(root)
-  topLevel.resizable(width="NO", height="NO")
-  topLevel.title("DWatch")
+    topLevel = Toplevel(root)
+    topLevel.resizable(width="NO", height="NO")
+    topLevel.title("DWatch")
 
-  g = d(topLevel, eventhandler)
+    g = d(topLevel, eventhandler)
 
-  eventhandler.start()
-  root.mainloop()
-  exit()
+    eventhandler.start()
+    root.mainloop()
+    exit()
 
 STATECHART:
     A [DS]
+    B
 
 TRANSITION:
     S: A
@@ -26,3 +27,16 @@ TRANSITION:
        g.increaseTimeByOne()
        g.refreshTimeDisplay()
 
+TRANSITION:
+    S: A
+    N: A
+    E: lightOn
+    O: print "enable light"
+       g.setIndiglo()
+
+TRANSITION:
+    S: A
+    N: A
+    E: lightOff
+    O: print "disable light"
+       g.unsetIndiglo()
