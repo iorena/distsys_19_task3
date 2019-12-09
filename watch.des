@@ -18,6 +18,9 @@ INITIALIZER:
 STATECHART:
     A [DS] # main time state
     B      # chrono state
+        B1 [DS]  # chrono at 0.0
+        B2       # chrono running
+        B3       # chrono paused
 
 # main loops for default and chrono states
 
@@ -81,3 +84,29 @@ TRANSITION:
     N: A
     E: changeMode
     O: print "toggle mode to time"
+
+# chrono start and reset
+
+TRANSITION:
+    S: B.B1
+    N: B.B2
+    E: initChrono
+    O: print "start chrono"
+
+TRANSITION:
+    S: B.B2
+    N: B.B3
+    E: initChrono
+    O: print "pause chrono"
+
+TRANSITION:
+    S: B.B3
+    N: B.B2
+    E: initChrono
+    O: print "resumed chrono"
+
+TRANSITION:
+    S: B.B3
+    N: B.B1
+    E: resetChrono
+    O: print "reset chrono"
